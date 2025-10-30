@@ -1,6 +1,6 @@
 const fs=require("fs");
 const path=require("path");
-const Resume=require("../models/Resume");
+const Resume=require("../Models/Resume");
 const upload=require("../middlewares/uploadMiddleware");
 
 const uploadResumeImages=async (req,res)=>{
