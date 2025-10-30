@@ -2,7 +2,7 @@ import React from 'react';
 import TemplateOne from './TemplateOne';
 import TemplateTwo from './TemplateTwo';
 import TemplateThree from './TemplateThree'; 
-
+ 
 const RenderResume=({templateId, resumeData, colorPalette, containerWidth
 })=>{
     switch(templateId){

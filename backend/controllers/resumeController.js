@@ -77,6 +77,8 @@ const createResume=async(req,res)=>{
         const newResume = await Resume.create({
             userId : req.user._id,
             title,
+             template: req.body.template || { theme: "01", colorPalette: [] }, // ✅ add this
+  ...defaultResumeData,
             ...defaultResumeData,
         });
 

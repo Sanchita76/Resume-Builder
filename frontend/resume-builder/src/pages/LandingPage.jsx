@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
-
+import React, { useState} from 'react';
+import Reviews from './Reviews';
 import HERO_IMG from '../assets/hero-img.jpg'
 import {useNavigate} from 'react-router-dom';
 import Login from './Auth/Login';
+import TemplateCarousel from "../components/TemplateCarousel";
 import SignUp from './Auth/SignUp';
 import Modal from "../components/Modal";
 // import { useContext } from 'react';
 import {UserContext} from "../context/userContext";
 import { useContext } from 'react';
 import ProfileInfoCard from '../components/Cards/ProfileInfoCard';
+import Footer from './Footer';
+import Design from './Design';
 
+ // ✅ This one is only for template carousel (not related to main CTA)
+  const handleTemplateTry = (templateId) => {
+    console.log("Template selected:", templateId);
+    // we’ll handle navigation inside TemplateCarousel itself
+  };
 
 const LandingPage=() => {
     const {user} =useContext(UserContext);
@@ -24,7 +32,12 @@ const LandingPage=() => {
         }else{
             navigate("/dashboard");
         }
-    };
+    }; 
+    // ✅ Independent callback for template selection
+  const handleTemplateSelect = (templateId) => {
+    console.log("Template selected:", templateId);
+    // optional tracking / analytics
+  };
     return (
         <div className='w-full min-h-full bg-white'>
            <div className="container mx-auto px-4 py-6">
@@ -39,6 +52,8 @@ const LandingPage=() => {
                 </button>}
                </header>
 
+               
+
                {/*Hero Content*/}
                <div className="flex flex-col md:flex-row items-center">
                 <div className="w-full md:w-1/2 pr-4 mb-8 md:mb-0">
@@ -49,14 +64,37 @@ const LandingPage=() => {
                         </span>
                         </h1>
                         <p className="text-lg text-gray-700 mb-8">
-                            Craft a job-winning , ATS-friendly resume in minutes with our smart AI-powered resume builder. Choose from modern templates and download your professional CV instantly.
+                            Craft a job-winning , ATS-friendly resume in minutes with our smart AI-powered resume builder. Choose from modern templates and download your professional CV instantly!
                         </p>
+                    <div className="flex flex-wrap items-center">
                         <button 
-                        className="bg-black text-sm font-semibold text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+                        className="bg-black text-sm font-semibold text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer whitespace-nowrap"
                         onClick={handleCTA}
                         >
-                            Get Started
-                        </button>
+                        Get Started!
+                        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button 
+                        className="bg-purple-700 text-sm font-semibold text-white px-5 py-3 rounded-lg hover:bg-pink-800 transition-colors cursor-pointer whitespace-nowrap"
+                        onClick={handleCTA}
+                        >
+                            AI Resume Analyzer
+                        </button>&nbsp;
+                        <br className="hidden md:block" />
+                        <div className="flex flex-wrap gap-4 mt-4 md:mt-0 items-center">
+                            <div className="flex items-center mr-4 ml-3"><br className="hidden md:block" /><br/>
+                               <span className="text-purple-600 text-lg font-bold">↑</span>
+                               <span className="text-purple-600 text-lg font-bold ml-1">38%</span>
+                               <span className="text-purple-600 text-sm ml-1">more interviews</span>
+                            </div>
+                            <div className="flex items-center border-l border-purple-600 pl-3">
+                                <span className="text-purple-600 text-lg font-bold">↑</span>
+                                <span className="text-purple-600 text-lg font-bold ml-1">23%</span>
+                                <span className="text-purple-600 text-sm ml-1">more likely to get a job offer</span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div className="w-full md:w-1/2">
                     <img src={HERO_IMG} 
@@ -65,35 +103,17 @@ const LandingPage=() => {
                     />
                </div>
            </div>
-
-           <section className="mt-5">
-            <h2 className="text-2xl font-bold text-center mb-12">
-                Features That Make You Shine
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
-                    <h3 className="text-lg font-semibold mb-3">Easy Editing</h3>
-                    <p className="text-gray-600">
-                        Update your resume sections with live preview and instant formatting.
-                    </p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
-                    <h3 className="text-lg font-semibold mb-3">
-                        Beautiful Templates</h3>
-                        <p className="text-gray-600">
-                            Choose from modern , professional templates that are easy to customize.
-                        </p>
-                    </div>
-
-                    <div className="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
-                        <h3 className="text-lg font-semibold mb-3">One-Click Export</h3>
-                        <p className="text-gray-600">
-                            Download your resume instantly as a high-quality PDF with one click.
-                        </p>
-                    </div>
-                </div>
-           </section>
+            
+           <br/><br/>
+           {/* Template Carousel Section */}
+        <TemplateCarousel onTemplateSelect={handleTemplateSelect} />
+        <br/><br/>
+           <Design/>
+           <br/><br/>
+           <Reviews/>
+           <br/><br/>
+           {/* Template Carousel Section
+        <TemplateCarousel onTemplateSelect={handleTemplateSelect} /> */}
            </div>
 
            <div className="text-sm bg-gray-50 text-secondary text-center p-5 mt-5">⚠️⚠️The names and logos of the companies referred to above are all trademarks of their respective holders.⚠️⚠️<br/>
@@ -117,6 +137,7 @@ const LandingPage=() => {
                 )}
             </div>
            </Modal>
+              <Footer/>
         </div>
     );
 };

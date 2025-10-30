@@ -125,59 +125,6 @@ export async function captureElementAsImage(element) {
   return canvas.toDataURL("image/png");
 }
 
-// utils/helper.js
-export async function captureElementAsCanvas(element, options = {}) {
-  if (!element) throw new Error("No element provided");
-
-  // 1) Wait for webfonts to be ready (if browser supports document.fonts)
-  if (document.fonts && document.fonts.ready) {
-    try {
-      await document.fonts.ready;
-    } catch (e) {
-      // non-fatal; continue
-      console.warn("document.fonts.ready failed:", e);
-    }
-  }
-
-  // 2) Wait for images inside element to load
-  const imgs = Array.from(element.querySelectorAll("img"));
-  await Promise.all(
-    imgs.map(
-      (img) =>
-        new Promise((resolve) => {
-          if (!img) return resolve();
-          if (img.complete && img.naturalWidth !== 0) return resolve();
-          const onEnd = () => {
-            img.removeEventListener("load", onEnd);
-            img.removeEventListener("error", onEnd);
-            resolve();
-          };
-          img.addEventListener("load", onEnd);
-          img.addEventListener("error", onEnd);
-          // In case the image never fires, ensure resolve after timeout (safety)
-          setTimeout(resolve, 2000);
-        })
-    )
-  );
-
-  // 3) Give browser a frame + small timeout to paint styles/layout
-  await new Promise((r) => requestAnimationFrame(r));
-  await new Promise((r) => setTimeout(r, 250));
-
-  // 4) Use html2canvas to get a canvas. Allow overriding scale via options.scale
-  const defaultOptions = {
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: "#ffffff",
-    logging: false,
-    scale: options.scale || 2,
-  };
-
-  const canvas = await html2canvas(element, { ...defaultOptions, ...options });
-  return canvas;
-}
-
-
 
 //Utility to convert base64 data URL toa a File object
 export const dataUrltoFile=(dataUrl,fileName)=>{

@@ -4,7 +4,7 @@ import Input from '../../components/Inputs/Input';
 import {API_PATHS} from '../../utils/apiPaths';
 import axiosInstance from '../../utils/axiosInstance';
 
-const CreateResumeForm = ({onSuccess}) => {
+const CreateResumeForm = ({onSuccess, preSelectedTemplateId}) => {
   const [title,setTitle]=useState("");
   const [error,setError]=useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,36 +28,56 @@ const CreateResumeForm = ({onSuccess}) => {
     //Create Resume API Call
      setLoading(true);
     try{
+      console.log("Creating resume with template:", preSelectedTemplateId);
+
       const response = await axiosInstance.post(API_PATHS.RESUME.CREATE,
         {
-          title,
-        });
+         title,
+        template: {
+          theme: preSelectedTemplateId || "01",
+          // colorPalette: "",
+          colorPalette: [], // ✅ Always an array
+        },
+      });
 
         console.log("Response:", response.data); // 👈 Add this    
         
-        // ✅ Fix: Access newResume._id instead of data._id
-      const createdResume = response.data?.newResume;
+  //       // ✅ Fix: Access newResume._id instead of data._id
+  //     const createdResume = response.data?.newResume;
+  //     if (createdResume && createdResume._id) {
+  //       if (onSuccess) onSuccess(); // ✅ close modal + refresh list
+  //       // setTimeout(() => {
+  //       //   navigate(`/resume/${createdResume._id}`); // ✅ navigate after modal closes
+  //       // }, 200);
+  //     } else {
+  //       setError("Unexpected response format from server.");
+  //     }
+
+
+  //   }catch(error){
+  //     console.error("Error creating resume:", error); // 👈 Add this
+  //     if(error.response && error.response.data.message){
+  //       setError(error.response.data.message);
+  //     }else{
+  //       setError("Something went wrong. Please try again later.");
+  //     }
+  //   }
+  //   finally {//New
+  //   setLoading(false);
+  // }
+  // };
+  const createdResume = response.data?.newResume;
       if (createdResume && createdResume._id) {
-        if (onSuccess) onSuccess(); // ✅ close modal + refresh list
-        // setTimeout(() => {
-        //   navigate(`/resume/${createdResume._id}`); // ✅ navigate after modal closes
-        // }, 200);
+        if (onSuccess) onSuccess(createdResume);
       } else {
         setError("Unexpected response format from server.");
       }
-
-
-    }catch(error){
-      console.error("Error creating resume:", error); // 👈 Add this
-      if(error.response && error.response.data.message){
-        setError(error.response.data.message);
-      }else{
-        setError("Something went wrong. Please try again later.");
-      }
+    } catch (error) {
+      console.error("Error creating resume:", error);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    finally {//New
-    setLoading(false);
-  }
   };
   return (
     <div className="w-[90vw] md:w-[70vh] p-7 flex flex-col justify-center">
