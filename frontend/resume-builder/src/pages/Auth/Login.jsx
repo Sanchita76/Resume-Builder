@@ -20,6 +20,7 @@ const Login =({setCurrentPage }) => {
   //Handle Login Form Submit
   const handleLogin=async(e)=>{
     e.preventDefault();
+    console.log("login clicked")
     
     if (!validateEmail(email)){
       setError("Please enter a valid email address!");
