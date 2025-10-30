@@ -9,9 +9,6 @@ import {
   LuSave,
   LuTrash2,
 } from "react-icons/lu";
-import Cookies from "js-cookie";
-import html2canvas from "html2canvas";
-import {jsPDF} from "jspdf";
 import TitleInput from "../../components/Inputs/TitleInput";
 import toast from "react-hot-toast";
 import {useReactToPrint} from "react-to-print";
@@ -31,11 +28,9 @@ import ThemeSelector from "./ThemeSelector";
 import Modal from "../../components/Modal";
 import {
   captureElementAsImage,
-  captureElementAsCanvas,
   dataUrltoFile,
   fixTailwindColors,
 } from "../../utils/helper";
-
 // import ResumePreview from "../../components/ResumePreview/ResumePreview";
 // import ThemeSelector from "../../components/ThemeSelector/ThemeSelector";
 // import PreviewModal from "../../components/modals/PreviewModal";
@@ -559,17 +554,17 @@ const EditResume = () => {
     }
   };
 
-  //download resume
+  // //download resume
   // const reactToPrintFn=useReactToPrint({contentRef: resumeDownloadRef});
-  // const reactToPrintFn = useReactToPrint({
-  //   contentRef: resumeDownloadRef,
-  //   onAfterPrint: () => {
-  //     toast.success('PDF downloaded successfully!');
-  //   },
-  //   onPrintError: (error) => {
-  //     toast.error('Error downloading PDF: ' + error.message);
-  //   }
-  // });
+  const reactToPrintFn = useReactToPrint({
+    contentRef: resumeDownloadRef,
+    onAfterPrint: () => {
+      toast.success('PDF downloaded successfully!');
+    },
+    onPrintError: (error) => {
+      toast.error('Error downloading PDF: ' + error.message);
+    }
+  });
 
   //Function to update baseWidth based on the resume container size
   const updateBaseWidth=()=>{
@@ -577,140 +572,6 @@ const EditResume = () => {
       setBaseWidth(resumeRef.current.offsetWidth);
     }
   };
-
-   // Download Resume as PDF (portrait A4, one-page, high quality)
-//     const handleDownload = async () => {
-//   try {
-//     if (!resumeData) {
-//       toast.error("Please wait — resume still loading!");
-//       return;
-//     }
-//     const el = resumeDownloadRef.current;
-//     if (!el) {
-//       toast.error("Resume not ready for download!");
-//       return;
-//     }
-
-//     // 1) Convert Tailwind OKLCH colors BEFORE capture
-//     try {
-//       fixTailwindColors(el);
-//     } catch (e) {
-//       console.warn("fixTailwindColors warning:", e);
-//     }
-
-//     // 2) Ensure render + paint
-//     await new Promise((r) => requestAnimationFrame(r));
-//     await new Promise((r) => setTimeout(r, 250));
-
-//     // 3) Capture canvas (helper waits for fonts/images)
-//     const desiredScale = 2; // high quality; adjust to 3 if desired and safe
-//     const canvas = await captureElementAsCanvas(el, { scale: desiredScale });
-
-//     if (!canvas || !canvas.width || !canvas.height) {
-//       throw new Error("Invalid canvas dimensions");
-//     }
-
-//     // 4) Convert canvas to JPEG (robust for jsPDF)
-//     const imgData = canvas.toDataURL("image/jpeg", 0.95);
-
-//     // 5) Create jsPDF A4 portrait in mm
-//     const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
-//     const pdfWidth = pdf.internal.pageSize.getWidth();  // 210
-//     const pdfHeight = pdf.internal.pageSize.getHeight(); // 297
-
-//     // 6) Compute image size in mm to match PDF width and preserve aspect ratio
-//     let imgWidthMm = pdfWidth;
-//     let imgHeightMm = (canvas.height * imgWidthMm) / canvas.width;
-
-//     if (!isFinite(imgHeightMm) || imgHeightMm <= 0) {
-//       throw new Error("Invalid image dimensions for PDF");
-//     }
-//     if (imgHeightMm > pdfHeight) {
-//       const scale = pdfHeight / imgHeightMm;
-//       imgWidthMm *= scale;
-//       imgHeightMm *= scale;
-//     }
-
-//     const x = (pdfWidth - imgWidthMm) / 2;
-//     const y = (pdfHeight - imgHeightMm) / 2;
-
-//     // 7) Add image and save
-//     pdf.addImage(imgData, "JPEG", x, y, imgWidthMm, imgHeightMm);
-//     pdf.save("resume.pdf");
-
-//     toast.success("Resume downloaded successfully!");
-//   } catch (error) {
-//     console.error("handleDownload error:", error);
-//     toast.error("Error downloading resume!");
-//   }
-// };
-
-
-
-
-const handleDownload = async () => {
-  try {
-    if (!resumeData) {
-      toast.error("Please wait — resume still loading!");
-      return;
-    }
-    const el = resumeDownloadRef.current;
-    if (!el) {
-      toast.error("Resume not ready for download!");
-      return;
-    }
-
-    // 1) Convert Tailwind OKLCH colors BEFORE capture
-    try {
-      fixTailwindColors(el);
-    } catch (e) {
-      console.warn("fixTailwindColors warning:", e);
-    }
-
-    // 2) Ensure render + paint
-    await new Promise((r) => requestAnimationFrame(r));
-    await new Promise((r) => setTimeout(r, 250));
-
-    // ✅ 3) Capture as crisp PNG (NO canvas needed manually)
-    const imgData = await captureElementAsImage(el);
-    if (!imgData) throw new Error("Failed to capture image");
-
-    // 4) Create PDF
-    const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
-    const pdfWidth = pdf.internal.pageSize.getWidth();  // 210
-    const pdfHeight = pdf.internal.pageSize.getHeight(); // 297
-
-    // ✅ 5) Load image to get natural width/height
-    const img = new Image();
-    img.src = imgData;
-    await new Promise((resolve) => (img.onload = resolve));
-
-    // ✅ 6) Auto-scale perfect fit
-    let imgWidthMm = pdfWidth;
-    let imgHeightMm = (img.naturalHeight * imgWidthMm) / img.naturalWidth;
-
-    if (imgHeightMm > pdfHeight) {
-      const scale = pdfHeight / imgHeightMm;
-      imgWidthMm *= scale;
-      imgHeightMm *= scale;
-    }
-
-    const x = (pdfWidth - imgWidthMm) / 2;
-    const y = (pdfHeight - imgHeightMm) / 2;
-
-    // ✅ 7) Add to PDF (PNG direct, no compression loss)
-    pdf.addImage(imgData, "PNG", x, y, imgWidthMm, imgHeightMm);
-    pdf.save("resume.pdf");
-
-    toast.success("Resume downloaded successfully!");
-  } catch (error) {
-    console.error("handleDownload error:", error);
-    toast.error("Error downloading resume!");
-  }
-};
-
-
-
 
   useEffect(()=>{
     updateBaseWidth();
@@ -724,8 +585,6 @@ const handleDownload = async () => {
       window.removeEventListener("resize",updateBaseWidth);
     };
   },[]);
-  console.log("Current Template Loaded:", resumeData?.template?.theme);
-  console.log("Full resumeData:", resumeData);
     
   return ( <DashboardLayout>
       <div className ="container mx-auto">
@@ -753,12 +612,6 @@ const handleDownload = async () => {
               <LuTrash2 className="text-[16px]" />
               <span className="hidden md:block">Delete</span>
             </button>
-
-            <button className="btn-small-light" onClick={handleDownload}>
-  <LuDownload className="text-[16px]" />
-  <span className="hidden md:block">Download</span>
-</button>
-
 
         <button
             className="btn-small-light"
@@ -828,20 +681,13 @@ const handleDownload = async () => {
                 </div>
               </div>
               <div ref={resumeRef} className="h-[100vh]">
-                
                 {/*Resume Template*/}
-                 {/* <RenderResume
+                 <RenderResume
                       templateId={resumeData?.template?.theme || ""}
                       resumeData={resumeData}
                       colorPalette={resumeData?.template?.colorPalette || []}
                       containerWidth={baseWidth}
-                /> */}
-                <RenderResume
-  templateId={resumeData?.template?.theme || "01"}
-  resumeData={resumeData}
-  colorPalette={resumeData?.template?.colorPalette || []}
-  containerWidth={baseWidth}
-/>
+                />
 
               </div>
           </div> 
@@ -875,47 +721,16 @@ const handleDownload = async () => {
           showActionBtn
           actionBtnText="Download"
           actionBtnIcon={<LuDownload className="text-[16px]" />}
-          // onActionClick={() => reactToPrintFn()}
-          onActionClick={() => handleDownload()}
+          onActionClick={() => reactToPrintFn()}
       >
-          {/* <div ref={resumeDownloadRef} className="w-[98vw] h-[90vh]"> */}
-      
-          <div className="w-[98vw] h-[90vh]">
-
+          <div ref={resumeDownloadRef} className="w-[98vw] h-[90vh]">
             <RenderResume
                 templateId={resumeData?.template?.theme || ""}
                 resumeData={resumeData}
                 colorPalette={resumeData?.template?.colorPalette || []}
             />
           </div>
-
-          
       </Modal>
-
-{/* Hidden but fully rendered off-screen for accurate measuring & capture */}
-<div
-  ref={resumeDownloadRef}
-  style={{
-    position: "absolute",
-    left: "-9999px",        // off-screen but rendered
-    top: 0,
-    width: "794px",         // design width you chose
-    minHeight: "1122px",    // ≈ 297mm @96dpi
-    background: "#fff",
-    pointerEvents: "none",
-    opacity: 1,             // visible to layout engine (not to user because off-screen)
-    overflow: "hidden",
-    zIndex: -9999,
-  }}
->
-  <RenderResume
-    templateId={resumeData?.template?.theme || ""}
-    resumeData={resumeData}
-    colorPalette={resumeData?.template?.colorPalette || []}
-    containerWidth={794}
-  />
-</div>
-
 
 
     </DashboardLayout>

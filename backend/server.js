@@ -1,5 +1,4 @@
 require('dotenv').config();
-const cookieParser = require("cookie-parser");
 const express = require('express');
 const cors = require('cors');
 const path=require('path');
@@ -18,14 +17,10 @@ const app = express();
 //         allowedHeaders:["Content-Type","Authorization"],
 //     })
 // );
-
-app.use(cookieParser());  
-
-
 app.use(//New CORS configuration
   cors({
     // origin: "http://localhost:5173", // your frontend's URL
-    origin: ["https://intelli-resume.netlify.app", "http://localhost:5173", "*"], // your frontend's URL
+    origin: process.env.CLIENT_URL,
     credentials: true,                // allow cookies, Authorization headers
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -56,20 +51,14 @@ app.use(
     "/uploads",
     express.static(path.join(__dirname, "uploads"),{
         setHeaders : (res,path)=>{
-            res.set("Access-Control-Allow-Origin", "https://intelli-resume.netlify.app/");
+            res.set("Access-Control-Allow-Origin", "http://localhost:5173");
         },
     })
 );
 
-app.get("/", (req,res) => {
-  console.log("Server is running...");
-  res.status(200).json({message: "API is running..."});
-});
-
 //Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => 
-  console.log(`Server is running on port ${PORT}`)
-);
+    console.log(`Server is running on port ${PORT}`));
 
  

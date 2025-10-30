@@ -22,15 +22,10 @@ const ThemeSelector = ({
     const [baseWidth,setBaseWidth]=useState(800);
 
     const [tabValue,setTabValue]=useState("Templates");
-    // const [selectedColorPalette,setSelectedColorPalette]=useState({
-    //     colors:selectedTheme?.theme || [],
-    //     index:-1,
-    // });    
-    const [selectedColorPalette, setSelectedColorPalette] = useState({
-      colors: selectedTheme?.colorPalette || [],
-      index: -1,
-    });
-
+    const [selectedColorPalette,setSelectedColorPalette]=useState({
+        colors:selectedTheme?.theme || "",
+        index:-1,
+    });    
     const [selectedTemplate,setSelectedTemplate]=useState({
         theme:selectedTheme?.theme || "",
         index:-1,
@@ -78,43 +73,14 @@ const ThemeSelector = ({
                 <div className="grid grid-cols-2 gap-5 max-h-[80vh] overflow-scroll custom-scrollbar md:pr-5">
                     {tabValue==="Templates"&&
                         resumeTemplates.map((template,index)=>(
-                        //     <TemplateCard 
-                        //     key={`templates_${index}`}
-                        //     thumbnailImg={template.thumbnailImg}
-                        //     isSelected={selectedTemplate?.index===index}
-                        //     onSelect={()=>
-                        //        setSelectedTemplate({theme:template.id,index})
-                        //     }
-                        // />
-                        <TemplateCard
-  key={`templates_${index}`}
-  thumbnailImg={template.thumbnailImg}
-  isSelected={selectedTemplate?.index === index}
-  onSelect={() => {
-    const selectedTemplate = { theme: template.id, index };
-
-    // ✅ If no color selected yet → assign default color palette from data.js
-    if (!selectedColorPalette.colors?.length) {
-      const defaultPalette =
-        themeColorPalette[template.colorPaletteCode]?.[0] || [
-          "#EBFDFF",
-          "#A1F4FD",
-          "#CEFAFE",
-          "#00B8DB",
-          "#4A5565",
-        ];
-
-      setSelectedColorPalette({
-        colors: defaultPalette,
-        index: 0,
-      });
-    }
-
-    // ✅ Now set selected template
-    setSelectedTemplate(selectedTemplate);
-  }}
-/>
-
+                            <TemplateCard 
+                            key={`templates_${index}`}
+                            thumbnailImg={template.thumbnailImg}
+                            isSelected={selectedTemplate?.index===index}
+                            onSelect={()=>
+                               setSelectedTemplate({theme:template.id,index})
+                            }
+                        />
                     ))}
 
                     {tabValue==="Color Palettes" && 

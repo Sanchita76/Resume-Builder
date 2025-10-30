@@ -5,20 +5,16 @@ import TEMPLATE_THREE_IMG from '../assets/template-three.jpg'
 export const resumeTemplates = [
   {
     id: '01',
-    label: "Template One",
     thumbnailImg: TEMPLATE_ONE_IMG,
     colorPaletteCode: 'themeOne',
   },
   {
     id: '02',
-    label: "Template Two",
     thumbnailImg: TEMPLATE_TWO_IMG,
     colorPaletteCode: 'themeTwo',
-    label: "Template Two"
   },
   {
     id: '03',
-    label: "Template Three",
     thumbnailImg: TEMPLATE_THREE_IMG,
     colorPaletteCode: 'themeThree',
   },
