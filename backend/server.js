@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cookieParser = require("cookie-parser");
 const express = require('express');
 const cors = require('cors');
 const path=require('path');
@@ -17,6 +18,10 @@ const app = express();
 //         allowedHeaders:["Content-Type","Authorization"],
 //     })
 // );
+
+app.use(cookieParser());  
+
+
 app.use(//New CORS configuration
   cors({
     // origin: "http://localhost:5173", // your frontend's URL

@@ -57,35 +57,45 @@ const registerUser=async(req,res)=>{
 //@desc Login user
 //@route POST/api/auth/login
 //@access Public
-const loginUser=async (req,res)=>{
-    try{
-        // console.log('Request body:', req.body); // Debug line
-        const {email,password}=req.body;
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-        const user=await User.findOne({email});
-        if(!user){
-            return res.status(500).json({message:"Invalid email or password."});
-        }
-
-        //Compare Password
-        const isMatch=await bcrypt.compare(password,user.password);
-        if(!isMatch){
-            return res.status(500).json({message:"Invalid email or password."});
-        }
-
-        //Return user data with JWT
-        res.json({
-            _id:user._id,
-            name:user.name,
-            email:user.email,
-            profileImageUrl:user.profileImageUrl,
-            token:generateToken(user._id),
-        });
-    }catch(error){
-        res.status(500).json({message:"Server error",error:error.message});
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password." });
     }
 
-}
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password." });
+    }
+
+    const token = generateToken(user._id);
+
+    // ✅ Store token securely in cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,       // Works on HTTPS (Netlify/Vercel)
+      sameSite: "none",   // Allow cross-site cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    // ✅ Send only user info
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profileImageUrl: user.profileImageUrl,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 
 //@desc Get user profile
 //@route GET/api/auth/profile
