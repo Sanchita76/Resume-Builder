@@ -235,4 +235,3 @@ You should now have both the frontend and backend servers running on your local 
 
 ##### ER Diagram View
 <img width="455" height="355" alt="image" src="https://github.com/user-attachments/assets/bbdac960-0e03-4cf8-84c3-825fd0b6beeb" />
-
