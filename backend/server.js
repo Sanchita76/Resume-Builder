@@ -17,15 +17,20 @@ const app = express();
 //         allowedHeaders:["Content-Type","Authorization"],
 //     })
 // );
-app.use(//New CORS configuration
-  cors({
-    // origin: "http://localhost:5173", // your frontend's URL
-    origin: process.env.CLIENT_URL,
-    credentials: true,                // allow cookies, Authorization headers
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.use(//New CORS configuration
+//   cors({
+//     // origin: "http://localhost:5173", // your frontend's URL
+//     origin: process.env.CLIENT_URL,
+//     credentials: true,                // allow cookies, Authorization headers
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
+app.use(cors({
+  origin: "https://intelliresume123.netlify.app",
+  credentials: true
+}));
+
 
 
 
