@@ -26,10 +26,21 @@ const app = express();
 //     allowedHeaders: ["Content-Type", "Authorization"],
 //   })
 // );
-app.use(cors({
+  //  app.use
+  //    (cors({
+  //      origin: "https://intelliresume123.netlify.app",
+  //      credentials: true,
+  //      methods: ["GET", "POST", "PUT", "DELETE"],
+  //      allowedHeaders: ["Content-Type", "Authorization"],
+  //       })
+  //  );
+  app.options("*", cors({
   origin: "https://intelliresume123.netlify.app",
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 
 
 
@@ -56,7 +67,7 @@ app.use(
     "/uploads",
     express.static(path.join(__dirname, "uploads"),{
         setHeaders : (res,path)=>{
-            res.set("Access-Control-Allow-Origin", "https://intelliresume123.netlify.app/");
+            res.set("Access-Control-Allow-Origin", "https://intelliresume123.netlify.app");
         },
     })
 );
