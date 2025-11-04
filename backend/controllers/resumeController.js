@@ -1,6 +1,6 @@
 const fs=require("node:fs");
 const path=require("node:path");
-const Resume=require("../models/Resume");
+const Resume=require("../Models/Resume");
 
 //@desc Create a new Resume
 //@route POST/api/resumes
