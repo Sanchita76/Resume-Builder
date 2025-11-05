@@ -93,18 +93,46 @@ const createResume=async(req,res)=>{
 //@desc Get all resumes for logged-in user
 //@route Get/api/resumes
 //@access Private
-const getUserResumes = async (req,res)=>{
-    try{
-        const resumes=await Resume.find({userId:req.user._id}).sort({
-            updatedAt:-1,
-        }); 
-        res.json(resumes);
-    }catch(error){
-        res
-        .status(500)
-        .json({message:"Failed to create resume",error:error.message});
-    }
+// const getUserResumes = async (req,res)=>{
+//     try{
+//         const resumes=await Resume.find({userId:req.user._id}).sort({
+//             updatedAt:-1,
+//         }); 
+//         res.json(resumes);
+//     }catch(error){
+//         res
+//         .status(500)
+//         .json({message:"Failed to create resume",error:error.message});
+//     }
+// };
+//@desc Get all resumes for logged-in user
+//@route GET /api/resume
+//@access Private
+const getUserResumes = async (req, res) => {
+  try {
+    const resumes = await Resume.find({ userId: req.user._id }).sort({
+      updatedAt: -1,
+    });
+
+    // ✅ Auto-fix any localhost URLs on the fly
+    const fixedResumes = resumes.map(r => {
+      if (r.thumbnailLink && r.thumbnailLink.includes("localhost")) {
+        r.thumbnailLink = r.thumbnailLink.replace(
+          "http://localhost:8000",
+          process.env.BASE_URL
+        );
+      }
+      return r;
+    });
+
+    res.json(fixedResumes);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to fetch resumes", error: error.message });
+  }
 };
+
 
 //@desc Get single resume by ID
 //@route GET/api/resumes/:id
