@@ -108,21 +108,51 @@ const createResume=async(req,res)=>{
 //@desc Get all resumes for logged-in user
 //@route GET /api/resume
 //@access Private
+// const getUserResumes = async (req, res) => {
+//   try {
+//     const resumes = await Resume.find({ userId: req.user._id }).sort({
+//       updatedAt: -1,
+//     });
+
+//     // ✅ Auto-fix any localhost URLs on the fly
+//     const fixedResumes = resumes.map(r => {
+//       if (r.thumbnailLink && r.thumbnailLink.includes("localhost")) {
+//         r.thumbnailLink = r.thumbnailLink.replace(
+//           "http://localhost:8000",
+//           process.env.BASE_URL
+//         );
+//       }
+      
+//       return r;
+//     });
+
+//     res.json(fixedResumes);
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ message: "Failed to fetch resumes", error: error.message });
+//   }
+// };
+//@desc Get all resumes for logged-in user
+//@route GET /api/resumes
+//@access Private
 const getUserResumes = async (req, res) => {
   try {
     const resumes = await Resume.find({ userId: req.user._id }).sort({
       updatedAt: -1,
     });
 
-    // ✅ Auto-fix any localhost URLs on the fly
-    const fixedResumes = resumes.map(r => {
-      if (r.thumbnailLink && r.thumbnailLink.includes("localhost")) {
-        r.thumbnailLink = r.thumbnailLink.replace(
+    const baseUrl = process.env.BASE_URL;
+    const fixedResumes = resumes.map((r) => {
+      if (r.thumbnailLink?.includes("localhost")) {
+        r.thumbnailLink = r.thumbnailLink.replace("http://localhost:8000", baseUrl);
+      }
+      if (r.profileInfo?.profilePreviewUrl?.includes("localhost")) {
+        r.profileInfo.profilePreviewUrl = r.profileInfo.profilePreviewUrl.replace(
           "http://localhost:8000",
-          process.env.BASE_URL
+          baseUrl
         );
       }
-      
       return r;
     });
 
@@ -135,25 +165,72 @@ const getUserResumes = async (req, res) => {
 };
 
 
+
+
+
+
 //@desc Get single resume by ID
 //@route GET/api/resumes/:id
 //@access Private
-const getResumeById = async (req,res)=>{
-    try{
-        const resume = await Resume.findOne({_id:req.params.id,userId:req.user._id});
+// const getResumeById = async (req,res)=>{
+//     try{
+//         const resume = await Resume.findOne({_id:req.params.id,userId:req.user._id});
 
-        if(!resume){
-            return res.status(404).json({message:"Resume not found"});
-        }
+//         if(!resume){
+//             return res.status(404).json({message:"Resume not found"});
+//         }
 
-        res.json(resume);
+//         res.json(resume);
 
-    }catch(error){
-        res
-        .status(500)
-        .json({message:"Failed to get resume",error:error.message});
+//     }catch(error){
+//         res
+//         .status(500)
+//         .json({message:"Failed to get resume",error:error.message});
+//     }
+// };
+//@desc Get single resume by ID
+//@route GET /api/resumes/:id
+//@access Private
+const getResumeById = async (req, res) => {
+  try {
+    const resume = await Resume.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
     }
+
+    // 🧠 Fix any localhost URLs for images
+    const baseUrl = process.env.BASE_URL;
+    if (resume.thumbnailLink?.includes("localhost")) {
+      resume.thumbnailLink = resume.thumbnailLink.replace(
+        "http://localhost:8000",
+        baseUrl
+      );
+    }
+
+    if (resume.profileInfo?.profilePreviewUrl?.includes("localhost")) {
+      resume.profileInfo.profilePreviewUrl =
+        resume.profileInfo.profilePreviewUrl.replace(
+          "http://localhost:8000",
+          baseUrl
+        );
+    }
+
+    res.json(resume);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to get resume", error: error.message });
+  }
 };
+
+
+
+
+
 
 
 // //@desc Update a resume
