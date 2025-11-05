@@ -74,7 +74,7 @@ const Design=()=>{
     {/* Why Choose Section */}
             <section className="mt-5">
   {/* <h2 className="text-3xl font-bold text-center mb-4" style={{fontFamily:"cursive", color:"crimson"}}> */}
-  <h2 className="text-3xl font-bold text-center mb-4" style={{fontFamily:"Times New Roman", color:"crimson"}}>
+  <h2 className="text-3xl font-bold text-center mb-4" style={{fontFamily:"'Times New Roman', Times, serif", color:"crimson"}}>
     Get hired 36% faster with our feature-packed and easy-to-use resume builder app!<br/>
   </h2>
   <p className="text-0.7xl font-bold text-black-600 text-center mb-8">
@@ -218,7 +218,8 @@ const Design=()=>{
 <br/><br/><br/>
 {/* FAQS Section */}
 <div className="max-w-2xl mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4" style={{fontFamily:"cursive", color:"olive"}}>Frequently Asked Questions About Resume Builder</h2><br/>
+        {/* <h2 className="text-2xl font-bold mb-4" style={{fontFamily:"cursive", color:"olive"}}>Frequently Asked Questions About Resume Builder</h2><br/> */}
+        <h2 className="text-2xl font-bold mb-4" style={{fontFamily:"'Times New Roman', Times, serif", color:"olive"}}>Frequently Asked Questions About Resume Builder</h2><br/>
         {FAQs.map((faq, index) => (
           <div key={index} className="mb-2">
             <div className="flex justify-between items-center border-b pb-2">
