@@ -34,7 +34,7 @@ const app = express();
   //      allowedHeaders: ["Content-Type", "Authorization"],
   //       })
   //  );
-  app.options("*", cors({
+  app.use("*", cors({
   origin: "https://intelliresume123.netlify.app",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
