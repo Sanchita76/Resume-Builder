@@ -73,7 +73,8 @@ const Design=()=>{
         <div><br/>
     {/* Why Choose Section */}
             <section className="mt-5">
-  <h2 className="text-3xl font-bold text-center mb-4" style={{fontFamily:"cursive", color:"crimson"}}>
+  {/* <h2 className="text-3xl font-bold text-center mb-4" style={{fontFamily:"cursive", color:"crimson"}}> */}
+  <h2 className="text-3xl font-bold text-center mb-4" style={{fontFamily:"Times New Roman", color:"crimson"}}>
     Get hired 36% faster with our feature-packed and easy-to-use resume builder app!<br/>
   </h2>
   <p className="text-0.7xl font-bold text-black-600 text-center mb-8">
