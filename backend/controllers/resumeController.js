@@ -122,13 +122,6 @@ const getUserResumes = async (req, res) => {
           process.env.BASE_URL
         );
       }
-
-      if (r.profileInfo?.profilePreviewUrl?.includes("localhost")) {
-        r.profileInfo.profilePreviewUrl = r.profileInfo.profilePreviewUrl.replace(
-          "http://localhost:8000",
-          baseUrl
-        );
-      }
       
       return r;
     });
@@ -145,62 +138,22 @@ const getUserResumes = async (req, res) => {
 //@desc Get single resume by ID
 //@route GET/api/resumes/:id
 //@access Private
-// const getResumeById = async (req,res)=>{
-//     try{
-//         const resume = await Resume.findOne({_id:req.params.id,userId:req.user._id});
+const getResumeById = async (req,res)=>{
+    try{
+        const resume = await Resume.findOne({_id:req.params.id,userId:req.user._id});
 
-//         if(!resume){
-//             return res.status(404).json({message:"Resume not found"});
-//         }
+        if(!resume){
+            return res.status(404).json({message:"Resume not found"});
+        }
 
-//         res.json(resume);
+        res.json(resume);
 
-//     }catch(error){
-//         res
-//         .status(500)
-//         .json({message:"Failed to get resume",error:error.message});
-//     }
-// };
-//@desc Get single resume by ID
-//@route GET /api/resumes/:id
-//@access Private
-const getResumeById = async (req, res) => {
-  try {
-    const resume = await Resume.findOne({
-      _id: req.params.id,
-      userId: req.user._id,
-    });
-
-    if (!resume) {
-      return res.status(404).json({ message: "Resume not found" });
+    }catch(error){
+        res
+        .status(500)
+        .json({message:"Failed to get resume",error:error.message});
     }
-
-    // 🧠 Fix any localhost URLs for images
-    const baseUrl = process.env.BASE_URL;
-    if (resume.thumbnailLink?.includes("localhost")) {
-      resume.thumbnailLink = resume.thumbnailLink.replace(
-        "http://localhost:8000",
-        baseUrl
-      );
-    }
-
-    if (resume.profileInfo?.profilePreviewUrl?.includes("localhost")) {
-      resume.profileInfo.profilePreviewUrl =
-        resume.profileInfo.profilePreviewUrl.replace(
-          "http://localhost:8000",
-          baseUrl
-        );
-    }
-
-    res.json(resume);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to get resume", error: error.message });
-  }
 };
-
-
 
 
 // //@desc Update a resume
