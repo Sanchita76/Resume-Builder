@@ -33,6 +33,12 @@ const registerUser=async(req,res)=>{
         const salt=await bcrypt.genSalt(10);
         const hashedPassword=await bcrypt.hash(password,salt);
 
+         // ✅ Fix profile image URL
+        let fixedProfileImageUrl = profileImageUrl;
+            if (profileImageUrl && !profileImageUrl.startsWith("http")) {
+               fixedProfileImageUrl = `${process.env.BASE_URL}${profileImageUrl}`;
+            }
+
         //Create new user
         const user=await User.create({
             name,

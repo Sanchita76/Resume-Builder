@@ -18,7 +18,9 @@ const uploadResumeImages=async (req,res)=>{
             }
 
             const uploadsFolder=path.join(__dirname,"..",'uploads');
-            const baseUrl=`${req.protocol}://${req.get("host")}`;
+            // const baseUrl=`${req.protocol}://${req.get("host")}`;
+            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+
 
             const newThumbnail=req.files.thumbnail ?.[0];
             const newProfileImage=req.files.profileImage ?.[0];

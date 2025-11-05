@@ -16,11 +16,21 @@ const ProfileInfoCard=()=>{
     return (
         user && (
             <div className="flex items-center pr-4">
-                <img
+                {/* <img
                     src={user.profileImageUrl}
                     alt=""
                     className="w-11 h-11 bg-gray-300 rounded-full mr-3"
-            />
+            /> */}
+            <img
+  src={
+    user.profileImageUrl?.startsWith("http")
+      ? user.profileImageUrl.replace("http://localhost:8000", "https://resume-builder-ujy5.onrender.com")
+      : `https://resume-builder-ujy5.onrender.com${user.profileImageUrl}`
+  }
+  alt="Profile"
+  className="w-11 h-11 bg-gray-300 rounded-full mr-3"
+/>
+
             <div>
                 <div className="text-[15px] font-bold leading-3 pr-4">
                     {user.name || ""}

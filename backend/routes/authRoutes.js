@@ -20,9 +20,15 @@ router.post("/upload-image", upload.single("image"), (req,res)=>{
     // const imageUrl=`${req.protocol}://${req.get("host")}/uploads/${
     //     req.file.filename
     // }`;
-    const imageUrl = `https://resume-builder-ujy5.onrender.com/uploads/${req.file.filename}`;
+    // const imageUrl = `https://resume-builder-ujy5.onrender.com/uploads/${req.file.filename}`;
 
-    res.status(200).json({imageUrl});
+    // res.status(200).json({imageUrl});
+
+    // Use BASE_URL from .env for correct deployed domain
+  const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+  const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+
+  res.status(200).json({ imageUrl });
 });
 
 module.exports=router;
