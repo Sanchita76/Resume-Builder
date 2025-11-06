@@ -193,14 +193,14 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
 
 
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
+      {/* <div className="max-w-6xl mx-auto px-6" ref={ref}>
   <Slider {...settings}>
     {resumeTemplates.map((template) => (
       <div key={template.id} className="px-3 w-full">
-        <div className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+        <div className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white"> */}
           
           {/* ✅ Auto-scaled live preview */}
-          <div className="relative flex items-center justify-center bg-white overflow-hidden h-[420px]">
+          {/* <div className="relative flex items-center justify-center bg-white overflow-hidden h-[420px]">
             <div
               className="relative rounded-xl shadow-sm transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
               style={{
@@ -217,10 +217,10 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
                 colorPalette={themeColorPalette.themeOne[0]}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* ✅ Hover overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+          {/* <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
             <button
               onClick={() => openCreateModal(template.id)}
               className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-200"
@@ -233,6 +233,44 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
       </div>
     ))}
   </Slider>
+</div> */}
+
+
+
+<div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" ref={ref}>
+  {resumeTemplates.map((template) => (
+    <div key={template.id} className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+      
+      {/* Auto-scaled live preview */}
+      <div className="relative flex items-center justify-center bg-white overflow-hidden h-[300px] md:h-[420px]">
+        <div
+          className="relative rounded-xl shadow-sm transition-transform duration-300 ease-in-out group-hover:scale-[1.02] w-full"
+          style={{
+            transformOrigin: "top right",
+            transform: "scale(1)", 
+          }}
+        >
+          <RenderResume
+            templateId={template.id}
+            resumeData={DUMMY_RESUME_DATA}
+            containerWidth={400} 
+            colorPalette={themeColorPalette.themeOne[0]}
+          />
+        </div>
+      </div>
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+        <button
+          onClick={() => openCreateModal(template.id)}
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-full flex items-center gap-2 transition-all duration-200"
+        >
+          Try Template
+          <LuArrowRight className="text-[18px]" />
+        </button>
+      </div>
+    </div>
+  ))}
 </div>
 
 
