@@ -237,7 +237,7 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
 
 
 
-<div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3" ref={ref}>
+<div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-3" ref={ref}>
   {resumeTemplates.map((template) => (
     <div key={template.id} className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
       
@@ -253,7 +253,7 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
           <RenderResume
             templateId={template.id}
             resumeData={DUMMY_RESUME_DATA}
-            containerWidth={1200} 
+            containerWidth={800} 
             colorPalette={themeColorPalette.themeOne[0]}
           />
         </div>
