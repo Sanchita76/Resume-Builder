@@ -247,7 +247,7 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
           className="relative rounded-xl shadow-sm transition-transform duration-300 ease-in-out group-hover:scale-[1.02] w-full"
           style={{
             transformOrigin: "top center",
-            transform: "scale(0.659)", 
+            transform: "scale(0.659499)", 
           }}
         >
           <RenderResume
