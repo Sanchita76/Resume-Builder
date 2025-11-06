@@ -192,46 +192,48 @@ You should now have both the frontend and backend servers running on your local 
 
 #### Home Page
 ###### Templates Section
-<img width="455" height="351" alt="Screenshot 2025-11-03 235355" src="https://github.com/user-attachments/assets/c2787666-9e31-4795-9d46-686f4e19600e" /><br>
+<img width="455" height="351" alt="Screenshot 2025-11-03 235355" src="https://github.com/user-attachments/assets/294e6106-3da4-4cba-aad5-56737c7feaed" /><br>
 
 ###### Features Offered
-<img width=
-   "455" height="351" alt="Screenshot 2025-11-03 235407" src="https://github.com/user-attachments/assets/35b383d3-a1f8-4061-81f0-5cd32d526bf4" />
+<img width="455" height="351" alt="Screenshot 2025-11-03 235407" src="https://github.com/user-attachments/assets/58266a56-7f61-48c1-963f-b29b53f91ad8" />
 <br>
 
 ###### FAQS Section
-<img width="455" height="350" alt="Screenshot 2025-11-03 235417" src="https://github.com/user-attachments/assets/33e1295b-4cf8-481c-ba40-a6f7881ea421" />
+<img width="455" height="350" alt="" src="https://github.com/user-attachments/assets/eaeeef66-87bc-4ef4-a010-3ac7cc830017"/>
 <br>
 
 ###### Reviews Section & Footer
-<img width="455" height="350" alt="Screenshot 2025-11-03 235425" src="https://github.com/user-attachments/assets/324828fb-b239-455d-ab4a-80f8daaec139" />
+<img width="455" height="350" alt="Screenshot 2025-11-03 235425" src="https://github.com/user-attachments/assets/7a06d139-2c6e-4e78-b927-f482636180d1" />
 <br>
 
+#### Dashboard Page
 ###### Resume Dashboard
-<img width="455" height="350" alt="Screenshot 2025-11-03 235441" src="https://github.com/user-attachments/assets/c7862b0e-319b-4fff-907b-2264f9b5e86f" />
+<img width="455" height="350" alt="Screenshot 2025-11-03 235441" src="https://github.com/user-attachments/assets/6f2063b5-50dd-4ec4-bc5a-3f76a37be384" />
 <br>
 
+#### Resume Edit Page
 ###### Resume Edit Section
-<img width="455" height="350" alt="Screenshot 2025-11-03 235454" src="https://github.com/user-attachments/assets/48a25a92-3802-4464-adc8-baa038ecd816" />
+<img width="455" height="350" alt="Screenshot 2025-11-03 235454" src="https://github.com/user-attachments/assets/4df1e57a-cda3-4351-a88c-54da3650081b" />
 <br>
 
 ###### Change Theme Section
-<img width="455" height="350" alt="Screenshot 2025-11-03 235506" src="https://github.com/user-attachments/assets/bc37c3cd-d3f7-4dfa-b201-0ec7f35976a2" />
-<br>
-<img width="455" height="310" alt="Screenshot 2025-11-03 235516" src="https://github.com/user-attachments/assets/672eb7bd-5118-4059-a82d-a35ad6bf2b31" />
+<img width="455" height="350" alt="Screenshot 2025-11-03 235506" src="https://github.com/user-attachments/assets/935bb37f-244e-47ba-a497-c63c8258c3ec"/><br>
+<img width="455" height="310" alt="Screenshot 2025-11-03 235516" src="https://github.com/user-attachments/assets/316341de-d909-4f98-9b68-a554978851e1" />
 <br>
 
+#### Preview & Download Page
 ###### Preview & Download Section
-<img width="455" height="350" alt="Screenshot 2025-11-03 235531" src="https://github.com/user-attachments/assets/eef08123-904a-4176-9681-872f4738a7a3" />
+<img width="455" height="350" alt="Screenshot 2025-11-03 235531" src="https://github.com/user-attachments/assets/6620e7bd-0f16-410b-8170-1cc01d15b844" />
 <br>
 
 ###### Mobile view
-<img width="455" height="300" alt="Screenshot 2025-11-03 235714" src="https://github.com/user-attachments/assets/fb5115a5-6357-4638-a44a-7b40dd1eba96" />
+<img width="455" height="300" alt="Screenshot 2025-11-03 235714" src="https://github.com/user-attachments/assets/27742ad5-7ca0-4678-9ff6-157608adce0c" />
 <br>
 
 ### SRS Document 📜
 ##### DFD Diagram View
-<img width="500" height="548" alt="image" src="https://github.com/user-attachments/assets/a19a3ed7-a043-4d99-b552-cc05e3eeb126" />
+<img width="500" height="548" alt="image" src="https://github.com/user-attachments/assets/b1fc66d4-5da6-4ae7-b1a3-4cbe5786da3d" /><br>
 
 ##### ER Diagram View
-<img width="455" height="355" alt="image" src="https://github.com/user-attachments/assets/bbdac960-0e03-4cf8-84c3-825fd0b6beeb" />
+<img width="455" height="355" alt="image" src="https://github.com/user-attachments/assets/0b96cd3f-3ebf-4099-8f18-0b71ffde5b1a" />
+
