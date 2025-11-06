@@ -247,13 +247,13 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
           className="relative rounded-xl shadow-sm transition-transform duration-300 ease-in-out group-hover:scale-[1.02] w-full"
           style={{
             transformOrigin: "top right",
-            transform: "scale(3)", 
+            transform: "scale(2.3)", 
           }}
         >
           <RenderResume
             templateId={template.id}
             resumeData={DUMMY_RESUME_DATA}
-            containerWidth={400} 
+            containerWidth={800} 
             colorPalette={themeColorPalette.themeOne[0]}
           />
         </div>
