@@ -253,7 +253,7 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
           <RenderResume
             templateId={template.id}
             resumeData={DUMMY_RESUME_DATA}
-            containerWidth={800} 
+            containerWidth={1200} 
             colorPalette={themeColorPalette.themeOne[0]}
           />
         </div>
