@@ -196,11 +196,11 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
   <Slider {...settings}>
     {resumeTemplates.map((template) => (
-      <div key={template.id} className="px-3 w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
+      <div key={template.id} className="px-3 w-full">
         <div className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
           
           {/* ✅ Auto-scaled live preview */}
-          <div className="relative flex items-center justify-center bg-white overflow-hidden h-[420px] md:h-[420px]">
+          <div className="relative flex items-center justify-center bg-white overflow-hidden h-[420px]">
             <div
               className="relative rounded-xl shadow-sm transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
               style={{
@@ -213,7 +213,7 @@ const TemplateCarousel = ({ onTemplateSelect }) => {
               <RenderResume
                 templateId={template.id}
                 resumeData={DUMMY_RESUME_DATA}
-                containerWidth={400}//800
+                containerWidth={800}//800
                 colorPalette={themeColorPalette.themeOne[0]}
               />
             </div>
